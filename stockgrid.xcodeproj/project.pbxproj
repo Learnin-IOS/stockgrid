@@ -19,6 +19,7 @@
 		8F47A1A029B5425F00A28E32 /* TickerListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F47A19F29B5425F00A28E32 /* TickerListRowView.swift */; };
 		8F47A1A329B57CE900A28E32 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F47A1A229B57CE900A28E32 /* EmptyStateView.swift */; };
 		8F47A1A529B57E3C00A28E32 /* ErrorStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F47A1A429B57E3C00A28E32 /* ErrorStateView.swift */; };
+		8F47A1A729B59A8E00A28E32 /* LoadingStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F47A1A629B59A8E00A28E32 /* LoadingStateView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		8F47A19F29B5425F00A28E32 /* TickerListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerListRowView.swift; sourceTree = "<group>"; };
 		8F47A1A229B57CE900A28E32 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
 		8F47A1A429B57E3C00A28E32 /* ErrorStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorStateView.swift; sourceTree = "<group>"; };
+		8F47A1A629B59A8E00A28E32 /* LoadingStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingStateView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +163,7 @@
 			children = (
 				8F47A1A229B57CE900A28E32 /* EmptyStateView.swift */,
 				8F47A1A429B57E3C00A28E32 /* ErrorStateView.swift */,
+				8F47A1A629B59A8E00A28E32 /* LoadingStateView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -301,6 +304,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F47A1A729B59A8E00A28E32 /* LoadingStateView.swift in Sources */,
 				8F47A19D29B53FC300A28E32 /* TickerListViewData.swift in Sources */,
 				8F47A1A029B5425F00A28E32 /* TickerListRowView.swift in Sources */,
 				8F47A1A329B57CE900A28E32 /* EmptyStateView.swift in Sources */,
