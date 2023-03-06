@@ -7,13 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8F47A16F29B1A39600A28E32 /* stockgridApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F47A16E29B1A39600A28E32 /* stockgridApp.swift */; };
-		8F47A17129B1A39600A28E32 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F47A17029B1A39600A28E32 /* ContentView.swift */; };
+		8F47A16F29B1A39600A28E32 /* stockgrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F47A16E29B1A39600A28E32 /* stockgrid.swift */; };
+		8F47A17129B1A39600A28E32 /* MainListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F47A17029B1A39600A28E32 /* MainListView.swift */; };
 		8F47A17329B1A39B00A28E32 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F47A17229B1A39B00A28E32 /* Assets.xcassets */; };
 		8F47A17629B1A39B00A28E32 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F47A17529B1A39B00A28E32 /* Preview Assets.xcassets */; };
 		8F47A18029B1A39B00A28E32 /* stockgridTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F47A17F29B1A39B00A28E32 /* stockgridTests.swift */; };
 		8F47A18A29B1A39B00A28E32 /* stockgridUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F47A18929B1A39B00A28E32 /* stockgridUITests.swift */; };
 		8F47A18C29B1A39B00A28E32 /* stockgridUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F47A18B29B1A39B00A28E32 /* stockgridUITestsLaunchTests.swift */; };
+		8F47A19A29B5335A00A28E32 /* StocksAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 8F47A19929B5335A00A28E32 /* StocksAPI */; };
+		8F47A19D29B53FC300A28E32 /* TickerListViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F47A19C29B53FC200A28E32 /* TickerListViewData.swift */; };
+		8F47A1A029B5425F00A28E32 /* TickerListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F47A19F29B5425F00A28E32 /* TickerListRowView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,8 +38,8 @@
 
 /* Begin PBXFileReference section */
 		8F47A16B29B1A39600A28E32 /* stockgrid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = stockgrid.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		8F47A16E29B1A39600A28E32 /* stockgridApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = stockgridApp.swift; sourceTree = "<group>"; };
-		8F47A17029B1A39600A28E32 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		8F47A16E29B1A39600A28E32 /* stockgrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = stockgrid.swift; sourceTree = "<group>"; };
+		8F47A17029B1A39600A28E32 /* MainListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainListView.swift; sourceTree = "<group>"; };
 		8F47A17229B1A39B00A28E32 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8F47A17529B1A39B00A28E32 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8F47A17B29B1A39B00A28E32 /* stockgridTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = stockgridTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,6 +47,8 @@
 		8F47A18529B1A39B00A28E32 /* stockgridUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = stockgridUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F47A18929B1A39B00A28E32 /* stockgridUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = stockgridUITests.swift; sourceTree = "<group>"; };
 		8F47A18B29B1A39B00A28E32 /* stockgridUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = stockgridUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		8F47A19C29B53FC200A28E32 /* TickerListViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerListViewData.swift; sourceTree = "<group>"; };
+		8F47A19F29B5425F00A28E32 /* TickerListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerListRowView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F47A19A29B5335A00A28E32 /* StocksAPI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,8 +100,10 @@
 		8F47A16D29B1A39600A28E32 /* stockgrid */ = {
 			isa = PBXGroup;
 			children = (
-				8F47A16E29B1A39600A28E32 /* stockgridApp.swift */,
-				8F47A17029B1A39600A28E32 /* ContentView.swift */,
+				8F47A19E29B5423C00A28E32 /* Views */,
+				8F47A19B29B53F9C00A28E32 /* Models */,
+				8F47A16E29B1A39600A28E32 /* stockgrid.swift */,
+				8F47A17029B1A39600A28E32 /* MainListView.swift */,
 				8F47A17229B1A39B00A28E32 /* Assets.xcassets */,
 				8F47A17429B1A39B00A28E32 /* Preview Content */,
 			);
@@ -127,6 +135,22 @@
 			path = stockgridUITests;
 			sourceTree = "<group>";
 		};
+		8F47A19B29B53F9C00A28E32 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				8F47A19C29B53FC200A28E32 /* TickerListViewData.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		8F47A19E29B5423C00A28E32 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8F47A19F29B5425F00A28E32 /* TickerListRowView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -143,6 +167,9 @@
 			dependencies = (
 			);
 			name = stockgrid;
+			packageProductDependencies = (
+				8F47A19929B5335A00A28E32 /* StocksAPI */,
+			);
 			productName = stockgrid;
 			productReference = 8F47A16B29B1A39600A28E32 /* stockgrid.app */;
 			productType = "com.apple.product-type.application";
@@ -215,6 +242,9 @@
 				Base,
 			);
 			mainGroup = 8F47A16229B1A39500A28E32;
+			packageReferences = (
+				8F47A19829B5335A00A28E32 /* XCRemoteSwiftPackageReference "StocksAPI" */,
+			);
 			productRefGroup = 8F47A16C29B1A39600A28E32 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -257,8 +287,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F47A17129B1A39600A28E32 /* ContentView.swift in Sources */,
-				8F47A16F29B1A39600A28E32 /* stockgridApp.swift in Sources */,
+				8F47A19D29B53FC300A28E32 /* TickerListViewData.swift in Sources */,
+				8F47A1A029B5425F00A28E32 /* TickerListRowView.swift in Sources */,
+				8F47A17129B1A39600A28E32 /* MainListView.swift in Sources */,
+				8F47A16F29B1A39600A28E32 /* stockgrid.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -577,6 +609,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8F47A19829B5335A00A28E32 /* XCRemoteSwiftPackageReference "StocksAPI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Learnin-IOS/StocksAPI.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8F47A19929B5335A00A28E32 /* StocksAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8F47A19829B5335A00A28E32 /* XCRemoteSwiftPackageReference "StocksAPI" */;
+			productName = StocksAPI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8F47A16329B1A39500A28E32 /* Project object */;
 }
