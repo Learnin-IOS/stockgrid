@@ -17,6 +17,7 @@
 		8F47A19A29B5335A00A28E32 /* StocksAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 8F47A19929B5335A00A28E32 /* StocksAPI */; };
 		8F47A19D29B53FC300A28E32 /* TickerListViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F47A19C29B53FC200A28E32 /* TickerListViewData.swift */; };
 		8F47A1A029B5425F00A28E32 /* TickerListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F47A19F29B5425F00A28E32 /* TickerListRowView.swift */; };
+		8F47A1A329B57CE900A28E32 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F47A1A229B57CE900A28E32 /* EmptyStateView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		8F47A18B29B1A39B00A28E32 /* stockgridUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = stockgridUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		8F47A19C29B53FC200A28E32 /* TickerListViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerListViewData.swift; sourceTree = "<group>"; };
 		8F47A19F29B5425F00A28E32 /* TickerListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerListRowView.swift; sourceTree = "<group>"; };
+		8F47A1A229B57CE900A28E32 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,9 +148,18 @@
 		8F47A19E29B5423C00A28E32 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8F47A1A129B57CC600A28E32 /* Common */,
 				8F47A19F29B5425F00A28E32 /* TickerListRowView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		8F47A1A129B57CC600A28E32 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				8F47A1A229B57CE900A28E32 /* EmptyStateView.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -289,6 +300,7 @@
 			files = (
 				8F47A19D29B53FC300A28E32 /* TickerListViewData.swift in Sources */,
 				8F47A1A029B5425F00A28E32 /* TickerListRowView.swift in Sources */,
+				8F47A1A329B57CE900A28E32 /* EmptyStateView.swift in Sources */,
 				8F47A17129B1A39600A28E32 /* MainListView.swift in Sources */,
 				8F47A16F29B1A39600A28E32 /* stockgrid.swift in Sources */,
 			);
