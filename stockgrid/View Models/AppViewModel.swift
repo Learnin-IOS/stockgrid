@@ -6,3 +6,13 @@
 //
 
 import Foundation
+import StocksAPI
+import SwiftUI
+
+
+@MainActor
+class AppViewModel: ObservableObject {
+    
+    @Published var tickers: [Ticker] = []
+    
+}
