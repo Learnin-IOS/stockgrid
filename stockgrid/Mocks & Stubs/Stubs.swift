@@ -17,7 +17,7 @@ extension Ticker {
             Ticker(symbol: "AAPL", shortname: "Apple Inc."),
             Ticker(symbol: "TSLA", shortname: "Tesla"),
             Ticker(symbol: "NVDA", shortname: "Nvidia Corp"),
-            Ticker(symbol: "AMD", shortname: "Advavnced Micro Device ")
+            Ticker(symbol: "AMD", shortname: "Advavnced Micro Device")
         ]
     }
 }
