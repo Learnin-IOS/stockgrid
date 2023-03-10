@@ -6,3 +6,12 @@
 //
 
 import Foundation
+import SwiftUI
+import StocksAPI
+
+@MainActor
+class QuotesViewModel: ObservableObject {
+    
+    @Published var quotesDict: [String: Quote] = [:]
+}
+
