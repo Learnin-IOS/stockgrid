@@ -141,8 +141,8 @@
 		8F47A16D29B1A39600A28E32 /* stockgrid */ = {
 			isa = PBXGroup;
 			children = (
-				8F372C7529BCF46E00B0286B /* Extensions */,
 				8F47A16E29B1A39600A28E32 /* stockgrid.swift */,
+				8F372C7529BCF46E00B0286B /* Extensions */,
 				8F372C6B29B5F7E900B0286B /* View Models */,
 				8F47A19E29B5423C00A28E32 /* Views */,
 				8F47A19B29B53F9C00A28E32 /* Models */,
