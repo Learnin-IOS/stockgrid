@@ -16,6 +16,12 @@ struct MainListView: View {
     
     var body: some View {
         tickerListView
+            .listStyle(.plain)
+            .overlay { overlayView }
+            .toolbar {
+                titleToolbar
+                attributionToolbar
+            }
     }
     
     private var tickerListView: some View {
@@ -27,9 +33,47 @@ struct MainListView: View {
                         name: ticker.shortname,
                         price: quotesVM.priceForTicker(ticker ),
                         type: .main))
-                
+                .contentShape(Rectangle())
+                .onTapGesture { }
+            }
+            .onDelete {  appVM.removeTickers(atOffSets: $0)
             }
         }
+    }
+    
+    @ViewBuilder
+    private var overlayView: some View {
+        if appVM.tickers.isEmpty {
+            EmptyStateView(text: appVM.emptyTickersText)
+        }
+    }
+    
+    private var titleToolbar: some ToolbarContent {
+        ToolbarItem(placement: .navigationBarLeading) {
+            VStack (alignment: .leading,spacing: -4) {
+                Text(appVM.titleText)
+                Text(appVM.subtitleText).foregroundColor(Color(uiColor: .secondaryLabel))
+            }.font(.title2.weight(.heavy))
+                .padding(.bottom)
+        }
+    }
+    
+    private var attributionToolbar: some ToolbarContent {
+        ToolbarItem(placement: .bottomBar) {
+            HStack {
+                Button {
+                    appVM.openYahooFinance()
+                } label: {
+                    Text(appVM.attributionText)
+                        .font(.caption.weight(.heavy))
+                        .foregroundColor(Color(uiColor: .secondaryLabel))
+                }
+                .buttonStyle(.plain)
+                Spacer()
+
+            }
+        }
+
     }
 }
 
