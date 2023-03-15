@@ -14,7 +14,7 @@ extension Ticker {
     
     static var stubs: [Ticker] {
         [
-            Ticker(symbol: "AMD", shortname: "Advavnced Micro Device"),
+            Ticker(symbol: "AMD", shortname: "Advanced Micro Device"),
             Ticker(symbol: "AAPL", shortname: "Apple Inc."),
             Ticker(symbol: "BA", shortname: "The Boeing Company"),
             Ticker(symbol: "TSLA", shortname: "Tesla"),
