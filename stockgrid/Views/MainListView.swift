@@ -13,6 +13,7 @@ struct MainListView: View {
     // MARK: - Properties
     @EnvironmentObject var appVM: AppViewModel
     @StateObject var quotesVM = QuotesViewModel()
+    @StateObject var searchVM = SearchViewModel()
     
     var body: some View {
         tickerListView
@@ -22,6 +23,7 @@ struct MainListView: View {
                 titleToolbar
                 attributionToolbar
             }
+            .searchable(text: $searchVM.query)
     }
     
     private var tickerListView: some View {
@@ -45,6 +47,10 @@ struct MainListView: View {
     private var overlayView: some View {
         if appVM.tickers.isEmpty {
             EmptyStateView(text: appVM.emptyTickersText)
+        }
+        
+        if searchVM.isSearching {
+            SearchView(searchVM: searchVM)
         }
     }
     
@@ -91,9 +97,16 @@ struct MainListView_Previews: PreviewProvider {
         return vm
     }()
     
-    @StateObject static var quotesVM: QuotesViewModel = {
+    static var quotesVM: QuotesViewModel = {
         let vm = QuotesViewModel()
         vm.quotesDict = Quote.stubsDict
+        return vm
+        
+    }()
+    
+    static var searchVM: SearchViewModel = {
+        let vm = SearchViewModel()
+        vm.phase = .success(Ticker.stubs)
         return vm
         
     }()
@@ -101,13 +114,13 @@ struct MainListView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             NavigationStack{
-                MainListView(quotesVM: quotesVM)
+                MainListView(quotesVM: quotesVM, searchVM: searchVM)
             }
             .environmentObject(appVM)
             .previewDisplayName("With Tickers")
             
             NavigationStack{
-                MainListView(quotesVM: quotesVM)
+                MainListView(quotesVM: quotesVM, searchVM: searchVM)
             }
             .environmentObject(emptyAppVM)
             .previewDisplayName("With Empty Tickers")
