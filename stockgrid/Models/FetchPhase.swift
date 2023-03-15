@@ -19,7 +19,7 @@ enum FetchPase<V> {
     
     var value: V? {
         if case .success(let v) = self {
-            return V
+            return v
         }
         return nil
     }
