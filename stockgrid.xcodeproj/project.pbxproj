@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8F23ADE329C14B4600E4474A /* FetchPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F23ADE229C14B4600E4474A /* FetchPhase.swift */; };
 		8F372C6E29B72F4200B0286B /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F372C6D29B72F4200B0286B /* AppViewModel.swift */; };
 		8F372C7029B72F6500B0286B /* QuotesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F372C6F29B72F6500B0286B /* QuotesViewModel.swift */; };
 		8F372C7229B72F8100B0286B /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F372C7129B72F8100B0286B /* Utils.swift */; };
@@ -45,6 +46,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8F23ADE229C14B4600E4474A /* FetchPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchPhase.swift; sourceTree = "<group>"; };
 		8F372C6D29B72F4200B0286B /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
 		8F372C6F29B72F6500B0286B /* QuotesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuotesViewModel.swift; sourceTree = "<group>"; };
 		8F372C7129B72F8100B0286B /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 			isa = PBXGroup;
 			children = (
 				8F47A19C29B53FC200A28E32 /* TickerListViewData.swift */,
+				8F23ADE229C14B4600E4474A /* FetchPhase.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -345,6 +348,7 @@
 			files = (
 				8F47A1A729B59A8E00A28E32 /* LoadingStateView.swift in Sources */,
 				8F372C7029B72F6500B0286B /* QuotesViewModel.swift in Sources */,
+				8F23ADE329C14B4600E4474A /* FetchPhase.swift in Sources */,
 				8F47A19D29B53FC300A28E32 /* TickerListViewData.swift in Sources */,
 				8F372C6E29B72F4200B0286B /* AppViewModel.swift in Sources */,
 				8F47A1A029B5425F00A28E32 /* TickerListRowView.swift in Sources */,
