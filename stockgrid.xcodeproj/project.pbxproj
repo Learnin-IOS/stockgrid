@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		8F23ADE329C14B4600E4474A /* FetchPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F23ADE229C14B4600E4474A /* FetchPhase.swift */; };
+		8F23ADE529C1563200E4474A /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F23ADE429C1563200E4474A /* SearchViewModel.swift */; };
+		8F23ADE729C159E400E4474A /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F23ADE629C159E400E4474A /* SearchView.swift */; };
 		8F372C6E29B72F4200B0286B /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F372C6D29B72F4200B0286B /* AppViewModel.swift */; };
 		8F372C7029B72F6500B0286B /* QuotesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F372C6F29B72F6500B0286B /* QuotesViewModel.swift */; };
 		8F372C7229B72F8100B0286B /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F372C7129B72F8100B0286B /* Utils.swift */; };
@@ -47,6 +49,8 @@
 
 /* Begin PBXFileReference section */
 		8F23ADE229C14B4600E4474A /* FetchPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchPhase.swift; sourceTree = "<group>"; };
+		8F23ADE429C1563200E4474A /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		8F23ADE629C159E400E4474A /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		8F372C6D29B72F4200B0286B /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
 		8F372C6F29B72F6500B0286B /* QuotesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuotesViewModel.swift; sourceTree = "<group>"; };
 		8F372C7129B72F8100B0286B /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
@@ -100,6 +104,7 @@
 			children = (
 				8F372C6D29B72F4200B0286B /* AppViewModel.swift */,
 				8F372C6F29B72F6500B0286B /* QuotesViewModel.swift */,
+				8F23ADE429C1563200E4474A /* SearchViewModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -196,6 +201,7 @@
 				8F47A17029B1A39600A28E32 /* MainListView.swift */,
 				8F47A1A129B57CC600A28E32 /* Common */,
 				8F47A19F29B5425F00A28E32 /* TickerListRowView.swift */,
+				8F23ADE629C159E400E4474A /* SearchView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -354,7 +360,9 @@
 				8F47A1A029B5425F00A28E32 /* TickerListRowView.swift in Sources */,
 				8F372C7229B72F8100B0286B /* Utils.swift in Sources */,
 				8F372C7429B7BBA400B0286B /* Stubs.swift in Sources */,
+				8F23ADE529C1563200E4474A /* SearchViewModel.swift in Sources */,
 				8F47A1A329B57CE900A28E32 /* EmptyStateView.swift in Sources */,
+				8F23ADE729C159E400E4474A /* SearchView.swift in Sources */,
 				8F47A1A529B57E3C00A28E32 /* ErrorStateView.swift in Sources */,
 				8F47A17129B1A39600A28E32 /* MainListView.swift in Sources */,
 				8F372C7729BCF49A00B0286B /* Quote+Extensions.swift in Sources */,
