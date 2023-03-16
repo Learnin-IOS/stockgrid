@@ -24,6 +24,9 @@ struct MainListView: View {
                 attributionToolbar
             }
             .searchable(text: $searchVM.query)
+            .refreshable { await quotesVM.fetchQuotes(tickers: appVM.tickers)
+            }
+            .task(id: appVM.tickers) { await quotesVM.fetchQuotes(tickers: appVM.tickers) }
     }
     
     private var tickerListView: some View {
@@ -98,16 +101,15 @@ struct MainListView_Previews: PreviewProvider {
     }()
     
     static var quotesVM: QuotesViewModel = {
-        let vm = QuotesViewModel()
-        vm.quotesDict = Quote.stubsDict
-        return vm
-        
+        var mock = MockStocksAPI()
+        mock.stubbedFetchQuotesCallback = { Quote.stubs }
+        return QuotesViewModel(stockAPI: mock)
     }()
     
     static var searchVM: SearchViewModel = {
-        let vm = SearchViewModel()
-        vm.phase = .success(Ticker.stubs)
-        return vm
+        var mock = MockStocksAPI()
+        mock.stubbedSearchTickersCallback = { Ticker.stubs }
+        return SearchViewModel(stockAPI: mock)
         
     }()
     
