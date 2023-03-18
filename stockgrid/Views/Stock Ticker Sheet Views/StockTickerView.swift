@@ -18,11 +18,94 @@ struct StockTickerView: View {
             Divider()
                 .padding(.vertical, 8)
                 .padding(.horizontal)
+            scrollView
         }
         .padding(.top)
         .background(Color(uiColor: .systemBackground))
-        
-        
+        .task { await quoteVM .fetchQuote()}
+
+    }
+    
+    private var scrollView: some View {
+        ScrollView {
+            priceDiffRowView
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.top, 8)
+                .padding(.horizontal)
+            Divider()
+            
+            
+        }
+        .scrollIndicators(.hidden)
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    
+    private var priceDiffRowView: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            if let quote = quoteVM.quote {
+                HStack {
+                    if quote.isTrading,
+                       let price = quote.regularPriceText,
+                       let diff = quote.regularDiffText {
+                        
+                        priceDiffStackView(price: price, diff: diff, caption: nil)
+                    } else {
+                        
+                        if let atCloseText = quote.regularPriceText,
+                           let atCloseDiffText = quote.regularDiffText {
+                            
+                            priceDiffStackView(price: atCloseText, diff: atCloseDiffText, caption: "At Close")
+                        }
+                        
+                        Divider()
+                            .padding(.horizontal, 8)
+                        if let afterHoursText = quote.postPriceText,
+                           let afterHourDiffText = quote.postPriceDiffText {
+                            
+                            priceDiffStackView(price: afterHoursText, diff: afterHourDiffText, caption: "After Hours")
+                        }
+                    }
+                    
+                    Spacer()
+                }
+            }
+            exchangeCurrencyView
+
+            
+        }
+    }
+    
+    
+    private var exchangeCurrencyView: some View {
+        HStack(spacing: 4) {
+            if let exchange = quoteVM.ticker.exchDisp {
+                Text(exchange)
+            }
+            
+            if let currency = quoteVM.quote?.currency {
+                Text("·")
+                Text(currency)
+            }
+        }
+        .font(.subheadline.weight(.semibold))
+        .foregroundColor(Color(uiColor: .secondaryLabel))
+    }
+    
+    private func priceDiffStackView(price: String, diff: String, caption: String?) -> some View {
+        VStack(alignment: .leading) {
+            HStack(alignment: .lastTextBaseline ,spacing: 16) {
+                Text(price).font(.headline.bold())
+                Text(diff).font(.subheadline.weight(.semibold))
+                    .foregroundColor(diff.hasPrefix("-") ? .red : .green )
+                
+            }
+            
+            if let caption {
+                Text(caption)
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundColor(Color(uiColor: .secondaryLabel))
+            }
+        }
     }
     
     private var headerView: some View {
@@ -101,11 +184,11 @@ struct StockTickerView_Previews: PreviewProvider {
                 .frame(height: 700)
             
             StockTickerView(quoteVM: loadingStubsQuoteVM)
-                .previewDisplayName("Loading")
+                .previewDisplayName("Loading Quote")
                 .frame(height: 700)
             
             StockTickerView(quoteVM: errorStubsQuoteVM)
-                .previewDisplayName("Error")
+                .previewDisplayName("Error Quote")
                 .frame(height: 700)
             
            
