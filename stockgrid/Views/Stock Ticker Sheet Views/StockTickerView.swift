@@ -15,9 +15,14 @@ struct StockTickerView: View {
     var body: some View {
         VStack(alignment: .leading,spacing: 0) {
             headerView.padding(.horizontal)
+            Divider()
+                .padding(.vertical, 8)
+                .padding(.horizontal)
         }
         .padding(.top)
         .background(Color(uiColor: .systemBackground))
+        
+        
     }
     
     private var headerView: some View {
