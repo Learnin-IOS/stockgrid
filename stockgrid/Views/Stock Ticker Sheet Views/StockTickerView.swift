@@ -13,8 +13,41 @@ struct StockTickerView: View {
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(alignment: .leading,spacing: 0) {
+            headerView.padding(.horizontal)
+        }
+        .padding(.top)
+        .background(Color(uiColor: .systemBackground))
     }
+    
+    private var headerView: some View {
+        HStack(alignment: .lastTextBaseline) {
+            Text(quoteVM.ticker.symbol).font(.title.bold())
+            if let shortname = quoteVM.ticker.shortname {
+                Text(shortname)
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundColor(Color(uiColor: .secondaryLabel))
+            }
+            Spacer()
+            closeButton
+        }
+    }
+        private var closeButton: some View {
+            Button{
+                dismiss()}
+        label: {
+                Circle()
+                    .frame(width: 36, height: 36)
+                    .foregroundColor(.gray.opacity(0.1))
+                    .overlay {
+                        Image(systemName: "xmark")
+                            .font(.system(size: 18).bold())
+                            .foregroundColor(Color(uiColor: .secondaryLabel))
+                    }
+            }
+            .buttonStyle(.plain)
+        }
+    
 }
 
 struct StockTickerView_Previews: PreviewProvider {
