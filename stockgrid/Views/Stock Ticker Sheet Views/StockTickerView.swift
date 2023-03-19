@@ -23,7 +23,7 @@ struct StockTickerView: View {
         }
         .padding(.top)
         .background(Color(uiColor: .systemBackground))
-        .task { await quoteVM .fetchQuote()}
+        .task { await quoteVM.fetchQuote()}
 
     }
     
@@ -33,6 +33,7 @@ struct StockTickerView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.top, 8)
                 .padding(.horizontal)
+            
             Divider()
             
             DateRangePickerView(selectedRange: $selectedRange)
@@ -56,8 +57,26 @@ struct StockTickerView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
     }
     
+    @ViewBuilder
     private var quoteDetailRowView: some View {
-        Text("")
+        switch quoteVM.phase {
+        case .fetching: LoadingStateView()
+        case .failure(let error): ErrorStateView(error: "Quote: \(error.localizedDescription)")
+        case .success(let quote):
+            ScrollView(.horizontal){
+                HStack(spacing: 16) {
+                    ForEach(quote.columnItems) {
+                        QuoteDetailRowColumnView(item: $0)
+                    }
+                }
+                .padding(.horizontal)
+                .font(.caption.weight(.semibold))
+                .lineLimit(1)
+            }
+            .scrollIndicators(.hidden)
+            
+        default: EmptyView()
+        }
     }
     
     private var priceDiffRowView: some View {
@@ -90,8 +109,6 @@ struct StockTickerView: View {
                 }
             }
             exchangeCurrencyView
-
-            
         }
     }
     
