@@ -26,10 +26,10 @@ struct SearchView: View {
                     )
                 )
             )
-//            .contentShape(Rectangle())
-//            .onTapGesture {
-                
-//            }
+            .contentShape(Rectangle())
+            .onTapGesture {
+                appVM.selectedTicker = ticker
+            }
         }
         .listStyle(.plain)
         .refreshable{ await quotesVm.fetchQuotes(tickers: searchVM.tickers) }

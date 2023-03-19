@@ -61,7 +61,7 @@ extension Quote {
               regularMarketDayLow: 95.94,
               regularMarketVolume: 91_220_000.0,
               trailingPE: 105.20,
-              marketCap: 157_700_000_000.0,
+              marketCap: 157_007_000_000.0,
               fiftyTwoWeekLow: 54.57,
               fiftyTwoWeekHigh: 125.67,
               averageDailyVolume3Month: 58_030_000.0,

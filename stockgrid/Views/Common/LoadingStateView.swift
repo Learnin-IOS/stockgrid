@@ -10,7 +10,6 @@ import SwiftUI
 struct LoadingStateView: View {
     var body: some View {
         HStack {
-            
             Spacer()
             ProgressView()
                 .progressViewStyle(.circular)
