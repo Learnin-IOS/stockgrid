@@ -10,6 +10,7 @@ import StocksAPI
 
 struct StockTickerView: View {
     @StateObject var quoteVM: TickerQuoteViewModel
+    @State var selectedRange = ChartRange.oneDay
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
@@ -34,10 +35,29 @@ struct StockTickerView: View {
                 .padding(.horizontal)
             Divider()
             
+            DateRangePickerView(selectedRange: $selectedRange)
+            
+            Divider()
+            
+            Text("ChartView place holder")
+                .padding(.horizontal)
+                .frame(maxWidth: .infinity, minHeight: 220)
+           
+            Divider()
+                .padding([.horizontal, .top])
+            
+            quoteDetailRowView
+                .frame(maxWidth: .infinity, minHeight: 80)
+            
+            Divider()
             
         }
         .scrollIndicators(.hidden)
         .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    
+    private var quoteDetailRowView: some View {
+        Text("")
     }
     
     private var priceDiffRowView: some View {
