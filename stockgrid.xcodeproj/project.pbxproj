@@ -36,6 +36,7 @@
 		8F5E31DB29C68C4900EB0636 /* ChartRange+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5E31DA29C68C4900EB0636 /* ChartRange+Extensions.swift */; };
 		8F5E31DD29C6A50100EB0636 /* QuoteDetailRowColumnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5E31DC29C6A50100EB0636 /* QuoteDetailRowColumnView.swift */; };
 		8F5E31DF29C6B0C700EB0636 /* Foundation+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5E31DE29C6B0C700EB0636 /* Foundation+Extensions.swift */; };
+		8FA20C7D29C8FD9B00D0E0D2 /* ChartViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA20C7C29C8FD9B00D0E0D2 /* ChartViewData.swift */; };
 		8FFB40CE29C4FCE900AD2F05 /* StockTickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFB40CD29C4FCE900AD2F05 /* StockTickerView.swift */; };
 		8FFB40D029C4FD3C00AD2F05 /* TickerQuoteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFB40CF29C4FD3C00AD2F05 /* TickerQuoteViewModel.swift */; };
 /* End PBXBuildFile section */
@@ -89,6 +90,7 @@
 		8F5E31DA29C68C4900EB0636 /* ChartRange+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChartRange+Extensions.swift"; sourceTree = "<group>"; };
 		8F5E31DC29C6A50100EB0636 /* QuoteDetailRowColumnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteDetailRowColumnView.swift; sourceTree = "<group>"; };
 		8F5E31DE29C6B0C700EB0636 /* Foundation+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Foundation+Extensions.swift"; sourceTree = "<group>"; };
+		8FA20C7C29C8FD9B00D0E0D2 /* ChartViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewData.swift; sourceTree = "<group>"; };
 		8FFB40CD29C4FCE900AD2F05 /* StockTickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockTickerView.swift; sourceTree = "<group>"; };
 		8FFB40CF29C4FD3C00AD2F05 /* TickerQuoteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerQuoteViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -226,6 +228,7 @@
 			children = (
 				8F47A19C29B53FC200A28E32 /* TickerListViewData.swift */,
 				8F23ADE229C14B4600E4474A /* FetchPhase.swift */,
+				8FA20C7C29C8FD9B00D0E0D2 /* ChartViewData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -417,6 +420,7 @@
 				8F23ADE729C159E400E4474A /* SearchView.swift in Sources */,
 				8F23ADEA29C265CF00E4474A /* StockAPI.swift in Sources */,
 				8F47A1A529B57E3C00A28E32 /* ErrorStateView.swift in Sources */,
+				8FA20C7D29C8FD9B00D0E0D2 /* ChartViewData.swift in Sources */,
 				8F23ADF029C2C9AC00E4474A /* MockTickerListRepository.swift in Sources */,
 				8F5E31DD29C6A50100EB0636 /* QuoteDetailRowColumnView.swift in Sources */,
 				8F47A17129B1A39600A28E32 /* MainListView.swift in Sources */,
