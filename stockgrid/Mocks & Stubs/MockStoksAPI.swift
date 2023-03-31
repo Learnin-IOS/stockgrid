@@ -23,6 +23,10 @@ struct MockStocksAPI: StockAPI {
     }
     
     
+    func fetchChartData(symbol: String, range: ChartRange) async throws -> ChartData? {
+        nil
+    }
+    
 }
 
 #endif
