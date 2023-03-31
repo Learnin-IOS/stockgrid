@@ -12,7 +12,7 @@ import StocksAPI
 @MainActor
 class ChartViewModel: ObservableObject {
     
-    @Published var fetchPhase = FetchPhase<ChartViewData>.initial
+    @Published var fetchPhase = FetchPase<ChartViewData>.initial
     var chart: ChartViewData? { fetchPhase.value }
     
     let ticker: Ticker
@@ -32,9 +32,10 @@ class ChartViewModel: ObservableObject {
         self.selectedRnage = ChartRange(rawValue: _range) ?? .oneDay
     }
     
+
+    
     func transformChartViewData(_ data: ChartData)  -> ChartViewData {
-        let item = data.indicators.map { ChartViewItem(timestamp: $0.timestamp, value: $0.close)
-            return ChartViewData(items: items)
-        }
+        let items = data.indicators.map { ChartViewItem(timestamp: $0.timestamp, value: $0.close)}
+        return ChartViewData(items: items)
     }
 }
