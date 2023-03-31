@@ -32,7 +32,24 @@ class ChartViewModel: ObservableObject {
         self.selectedRnage = ChartRange(rawValue: _range) ?? .oneDay
     }
     
-
+    func fetchData() async {
+        do {
+            
+            fetchPhase = .fetching
+            let rangeType = self.selectedRnage
+            let chatData = try await apiService.fetchChartData(tickerSymbols: ticker.symbol, range: rangeType)
+            
+            guard rangeType == self.selectedRnage else { return }
+            if let chatData {
+                fetchPhase = .success(transformChartViewData(chatData))
+            } else   {
+                fetchPhase = .empty
+            }
+            
+        } catch  {
+            fetchPhase = .failure(error)
+        }
+    }
     
     func transformChartViewData(_ data: ChartData)  -> ChartViewData {
         let items = data.indicators.map { ChartViewItem(timestamp: $0.timestamp, value: $0.close)}
