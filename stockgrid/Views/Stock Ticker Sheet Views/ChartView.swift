@@ -14,8 +14,29 @@ struct ChartView: View {
     
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        chart
+            .chartYScale(domain: data.items.map { $0.value }.min()!...data.items.map { $0.value }.max()!)
+//            .chartXAxis {
+//                AxisMarks(format: Date.FormatStyle(
+//                    date: .omitted,
+//                    time: .shortened,
+//                    timeZone: TimeZone(secondsFromGMT: -14400)!
+//                    )
+//                )
+//            }
     }
+    
+    private var chart: some View  {
+        Chart {
+            ForEach(data.items) {
+                LineMark(
+                    x: .value("Time", $0.timestamp),
+                    y: .value("Price", $0.value)
+                )
+            }
+        }
+    }
+    
 }
 
 struct ChartView_Previews: PreviewProvider {
@@ -24,11 +45,18 @@ struct ChartView_Previews: PreviewProvider {
     static var oneDayOngoing = ChartData.stub1DOngoing
     
     static var previews: some View {
-        ChartView()
+        ForEach(allRanges) {
+            ChartContainer_Previews(vm: chartViewModel(range: $0, stub: $0.stubs), title: $0.title)
+        }
+        
+        ChartContainer_Previews(vm: chartViewModel(range: .oneDay, stub: oneDayOngoing), title: "1D Ongoing")
     }
     
     static func chartViewModel(range: ChartRange, stub: ChartData) -> ChartViewModel {
-        var mockStocksAPI
+        var mockStocksAPI = MockStocksAPI()
+        mockStocksAPI.stubFetchChartDataCallback = { _ in stub }
+        let chartVM =  ChartViewModel(ticker: .stub, apiService: mockStocksAPI )
+        return chartVM
     }
 }
 
@@ -36,8 +64,7 @@ struct ChartView_Previews: PreviewProvider {
 struct ChartContainer_Previews: View {
     @StateObject var vm: ChartViewModel
     let title: String
-    
-    
+
     var body: some View {
         VStack {
             Text(title)
@@ -46,7 +73,7 @@ struct ChartContainer_Previews: View {
             }
         }
         .padding()
-        .frame(maxWidth: 272)
+        .frame(maxHeight: 272)
         .previewLayout(.sizeThatFits)
         .previewDisplayName(title)
         .task { await vm.fetchData()}

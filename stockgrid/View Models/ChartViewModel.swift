@@ -37,7 +37,7 @@ class ChartViewModel: ObservableObject {
             
             fetchPhase = .fetching
             let rangeType = self.selectedRnage
-            let chatData = try await apiService.fetchChartData(tickerSymbols: ticker.symbol, range: rangeType)
+            let chatData = try await apiService.fetchChartData(symbol: ticker.symbol, range: rangeType)
             
             guard rangeType == self.selectedRnage else { return }
             if let chatData {

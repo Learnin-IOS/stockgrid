@@ -25,7 +25,7 @@ struct MockStocksAPI: StockAPI {
     var stubFetchChartDataCallback: ((ChartRange) async throws -> ChartData?)! = { $0.stubs }
   
     func fetchChartData(symbol: String, range: ChartRange) async throws -> ChartData? {
-        try await stubbedFetchQuotesCallback(range)
+        try await stubFetchChartDataCallback(range)
     }
     
 }
