@@ -16,14 +16,7 @@ struct ChartView: View {
     var body: some View {
         chart
             .chartYScale(domain: data.items.map { $0.value }.min()!...data.items.map { $0.value }.max()!)
-//            .chartXAxis {
-//                AxisMarks(format: Date.FormatStyle(
-//                    date: .omitted,
-//                    time: .shortened,
-//                    timeZone: TimeZone(secondsFromGMT: -14400)!
-//                    )
-//                )
-//            }
+            .chartPlotStyle { chartPlotStyle($0) }
     }
     
     private var chart: some View  {
@@ -35,6 +28,27 @@ struct ChartView: View {
                 )
             }
         }
+    }
+    
+    private func chartPlotStyle(_ plotContent: ChartPlotContent) -> some View {
+        plotContent
+            .frame(height: 200)
+            .overlay {
+                Rectangle()
+                    .foregroundColor(.gray.opacity(0.5))
+                    .mask(ZStack {
+                        VStack {
+                            Spacer()
+                            Rectangle().frame(height: 1)
+                        }
+                        
+                        HStack {
+                            Spacer()
+                            Rectangle().frame(width: 0.3)
+                        }
+                        
+                    })
+            }
     }
     
 }
