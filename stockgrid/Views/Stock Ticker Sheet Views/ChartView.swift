@@ -15,7 +15,7 @@ struct ChartView: View {
     
     var body: some View {
         chart
-            .chartYScale(domain: data.items.map { $0.value }.min()!...data.items.map { $0.value }.max()!)
+            .chartYScale(domain: data.yAxisData.axisStart...data.yAxisData.axisEnd)
             .chartPlotStyle { chartPlotStyle($0) }
     }
     
@@ -30,7 +30,7 @@ struct ChartView: View {
                 
                 AreaMark (
                     x: .value("Time", $0.timestamp),
-                    yStart: .value("Min", data.items.map { $0.value }.min()!),
+                    yStart: .value("Min", data.yAxisData.axisStart),
                     yEnd: .value("Max", $0.value)
                     
                 )
@@ -39,6 +39,12 @@ struct ChartView: View {
                     .clear
                 ]), startPoint: .top, endPoint: .bottom)
                     .opacity(0.5))
+                
+                if let previousClose = data.previousCloseRuleMarkValue {
+                    RuleMark(y: .value("Previous Close", previousClose))
+                        .lineStyle(.init(lineWidth: 0.1, dash: [2]))
+                        .foregroundStyle(.gray.opacity(0.3))
+                }
             }
         }
     }
