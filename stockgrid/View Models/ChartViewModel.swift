@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Charts
 import SwiftUI
 import StocksAPI
 
@@ -24,6 +25,20 @@ class ChartViewModel: ObservableObject {
         didSet {
             _range = selectedRange.rawValue
         }
+    }
+    
+    @Published var selectedX: (any Plottable)?
+    
+    var selectedRuleMark: (value: Date, text: String)? {
+        guard let selectedX = selectedX as? Date,
+              let chart
+        else { return nil }
+        let index = DateBins(thresholds: chart.items.map { $0.timestamp }).index(for: selectedX)
+        return (selectedX, String(format: "%.2f", chart.items[index].value))
+    }
+    
+    var foregroundMarkColor: Color {
+        (selectedX != nil) ? .cyan : (chart?.lineColor ?? .cyan)
     }
     
     init(ticker: Ticker, apiService: StockAPI = StocksAPI()) {
