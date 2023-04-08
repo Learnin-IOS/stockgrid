@@ -11,12 +11,31 @@ import SwiftUI
 
 struct ChartView: View {
     let data: ChartViewData
+    @ObservedObject var vm: ChartViewModel
     
     
     var body: some View {
         chart
+            .chartXScale(domain: data.items.first)
             .chartYScale(domain: data.yAxisData.axisStart...data.yAxisData.axisEnd)
             .chartPlotStyle { chartPlotStyle($0) }
+            .chartOverlay { proxy in
+                GeometryReader { gProxy in
+                    Rectangle().fill(.clear).contentShape(Rectangle())
+                        .gesture(
+                            DragGesture(minimumDistance: 0)
+                                .onChanged {
+                                    onChangeDrag(
+                                        value: $0,
+                                        chartProxy: proxy,
+                                        geomertyProxy: gProxy)
+                                }
+                                .onEnded{ _ in
+                                    vm.selectedX = nil
+                                }
+                        )
+                    }
+            }
     }
     
     private var chart: some View  {
@@ -26,7 +45,7 @@ struct ChartView: View {
                     x: .value("Time", $0.timestamp),
                     y: .value("Price", $0.value)
                 )
-                .foregroundStyle(data.lineColor)
+                .foregroundStyle(vm.foregroundMarkColor)
                 
                 AreaMark (
                     x: .value("Time", $0.timestamp),
@@ -35,7 +54,7 @@ struct ChartView: View {
                     
                 )
                 .foregroundStyle(LinearGradient(gradient: Gradient(colors: [
-                    data.lineColor,
+                    vm.foregroundMarkColor,
                     .clear
                 ]), startPoint: .top, endPoint: .bottom)
                     .opacity(0.5))
@@ -44,6 +63,17 @@ struct ChartView: View {
                     RuleMark(y: .value("Previous Close", previousClose))
                         .lineStyle(.init(lineWidth: 0.1, dash: [2]))
                         .foregroundStyle(.gray.opacity(0.3))
+                }
+                
+                if let (selectedX, text) = vm.selectedRuleMark {
+                    RuleMark(x: .value("Selected timestamp", selectedX))
+                        .lineStyle(.init(lineWidth: 1))
+                        .annotation {
+                            Text(text)
+                                .font(.system(size: 14))
+                                .foregroundColor(.blue)
+                        }
+                        .foregroundStyle(vm.foregroundMarkColor)
                 }
             }
         }
@@ -68,6 +98,16 @@ struct ChartView: View {
                         
                     })
             }
+    }
+    
+    private func onChangeDrag(value: DragGesture.Value, chartProxy: ChartProxy, geomertyProxy: GeometryProxy) {
+        let xCurrent = value.location.x - geomertyProxy[chartProxy.plotAreaFrame].origin.x
+        if let timestamp: Date = chartProxy.value(atX: xCurrent),
+           let startDate = data.items.first?.timestamp,
+           let lastDate = data.items.last?.timestamp,
+           timestamp >= startDate && timestamp <= lastDate {
+            vm.selectedX = timestamp
+        }
     }
     
 }
@@ -101,8 +141,9 @@ struct ChartContainer_Previews: View {
     var body: some View {
         VStack {
             Text(title)
+                .padding(.bottom)
             if let chartViewData = vm.chart {
-                ChartView(data: chartViewData)
+                ChartView(data: chartViewData, vm: vm)
             }
         }
         .padding()
