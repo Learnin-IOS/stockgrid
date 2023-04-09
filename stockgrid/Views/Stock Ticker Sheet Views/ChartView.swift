@@ -16,7 +16,7 @@ struct ChartView: View {
     
     var body: some View {
         chart
-            .chartXScale(domain: data.items.first)
+            .chartXScale(domain: data.items.first!.timestamp...data.items.last!.timestamp)
             .chartYScale(domain: data.yAxisData.axisStart...data.yAxisData.axisEnd)
             .chartPlotStyle { chartPlotStyle($0) }
             .chartOverlay { proxy in
