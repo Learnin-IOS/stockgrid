@@ -9,8 +9,9 @@ import SwiftUI
 import StocksAPI
 
 struct StockTickerView: View {
+    
+    @StateObject var chartVM: ChartViewModel
     @StateObject var quoteVM: TickerQuoteViewModel
-    @State var selectedRange = ChartRange.oneDay
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
@@ -23,8 +24,14 @@ struct StockTickerView: View {
         }
         .padding(.top)
         .background(Color(uiColor: .systemBackground))
-        .task { await quoteVM.fetchQuote()}
-
+        .task(id: chartVM.selectedRange.rawValue) {
+            if quoteVM.quote == nil {
+                await quoteVM.fetchQuote()
+                
+            }
+            await chartVM.fetchData()
+        }
+        
     }
     
     private var scrollView: some View {
@@ -36,11 +43,11 @@ struct StockTickerView: View {
             
             Divider()
             
-            DateRangePickerView(selectedRange: $selectedRange)
+            DateRangePickerView(selectedRange: $chartVM.selectedRange)
             
             Divider()
             
-            Text("ChartView place holder")
+            chartView
                 .padding(.horizontal)
                 .frame(maxWidth: .infinity, minHeight: 220)
            
@@ -55,6 +62,18 @@ struct StockTickerView: View {
         }
         .scrollIndicators(.hidden)
         .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    
+    @ViewBuilder
+    private var chartView: some View {
+        switch chartVM.fetchPhase {
+        case .fetching: LoadingStateView()
+        case .success(let data):
+            ChartView(data: data, vm: chartVM)
+        case .failure(let error):
+            ErrorStateView(error: "Chart: \(error.localizedDescription)")
+        default: EmptyView()
+        }
     }
     
     @ViewBuilder
@@ -210,21 +229,27 @@ struct StockTickerView_Previews: PreviewProvider {
         }
         return TickerQuoteViewModel(ticker: .stub, stockAPI: mockAPI)
     }()
+    
+    static var chartVM: ChartViewModel {
+        ChartViewModel(ticker: .stub, apiService: MockStocksAPI())
+    }
+    
+    
     static var previews: some View {
         Group {
-            StockTickerView(quoteVM: tradingStubsQuoteVM)
+            StockTickerView(chartVM: chartVM, quoteVM: tradingStubsQuoteVM)
                 .previewDisplayName("Trading")
                 .frame(height: 700)
             
-            StockTickerView(quoteVM: closedStubsQuoteVM)
+            StockTickerView(chartVM: chartVM, quoteVM: closedStubsQuoteVM)
                 .previewDisplayName("Closed")
                 .frame(height: 700)
             
-            StockTickerView(quoteVM: loadingStubsQuoteVM)
+            StockTickerView(chartVM: chartVM, quoteVM: loadingStubsQuoteVM)
                 .previewDisplayName("Loading Quote")
                 .frame(height: 700)
             
-            StockTickerView(quoteVM: errorStubsQuoteVM)
+            StockTickerView(chartVM: chartVM, quoteVM: errorStubsQuoteVM)
                 .previewDisplayName("Error Quote")
                 .frame(height: 700)
             
