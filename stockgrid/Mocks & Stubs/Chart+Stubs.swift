@@ -28,7 +28,7 @@ extension ChartRange {
         }
     }
 }
-        
+
 extension ChartData {
     
     static var stub1DOngoing: ChartData {
