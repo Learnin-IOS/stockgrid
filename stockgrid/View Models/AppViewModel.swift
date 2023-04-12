@@ -42,6 +42,7 @@ class AppViewModel: ObservableObject {
     }
     
     private func loadTickers() {
+        
         Task { [weak self] in
             guard let self = self else { return }
 
@@ -54,6 +55,7 @@ class AppViewModel: ObservableObject {
         }
     }
     private func saveTickers() {
+        
         Task { [weak self] in
             guard let self = self else { return }
             do {
@@ -73,6 +75,7 @@ class AppViewModel: ObservableObject {
     }
     
     func toggleTicker(_ ticker: Ticker) {
+        
         if isAddedToMyTickers(ticker: ticker) {
              removeFromMyTickers(ticker: ticker)
         } else {
@@ -85,14 +88,18 @@ class AppViewModel: ObservableObject {
     }
  
     private func removeFromMyTickers(ticker: Ticker) {
+        
         guard let index = tickers.firstIndex(where: { $0.symbol == ticker.symbol }) else { return }
         tickers.remove(at: index)
+        
     }
     
     func openYahooFinance() {
+        
         let url = URL(string: "https://finance.yahoo.com")!
         guard UIApplication.shared.canOpenURL(url) else  { return }
         UIApplication.shared.open(url)
+        
     }
     
     
