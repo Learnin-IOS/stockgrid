@@ -8,17 +8,20 @@
 import SwiftUI
 
 struct TickerListRowView: View {
+    
     // MARK: - Properties
     
     let data: TickerListRawData
     
     var body: some View {
+        
         HStack(alignment: .center) {
+            
             if case let .search(isSaved, onButtonTapped) = data.type {
                 Button {
                     onButtonTapped()
                 } label: {
-                     image(isSaved: isSaved  )
+                    image(isSaved: isSaved  )
                 }
                 .buttonStyle(.plain)
             }
@@ -36,7 +39,7 @@ struct TickerListRowView: View {
             if let (price, change) = data.price {
                 VStack(alignment: .trailing, spacing: 4) {
                     Text(price)
-                        priceChangeView(text: change)
+                    priceChangeView(text: change)
                 }
                 .font(.headline.bold())
             }
@@ -46,6 +49,7 @@ struct TickerListRowView: View {
     
     @ViewBuilder
     func image(isSaved: Bool) -> some View {
+        
         if isSaved {
             Image(systemName: "checkmark.circle.fill")
                 .symbolRenderingMode(.palette)
@@ -61,6 +65,7 @@ struct TickerListRowView: View {
     
     @ViewBuilder
     func priceChangeView(text: String) -> some View {
+        
         if case .main = data.type {
             ZStack(alignment: .trailing) {
                 RoundedRectangle(cornerRadius: 4)
@@ -87,6 +92,7 @@ struct TickerListRawView_Previews: PreviewProvider {
             Text("Main List")
                 .font(.largeTitle.bold())
                 .padding()
+            
             VStack {
                 TickerListRowView(data: appleTickerListRowViewData(rowType: .main))
                 Divider()
@@ -97,6 +103,7 @@ struct TickerListRawView_Previews: PreviewProvider {
             Text("Search List")
                 .font(.largeTitle.bold())
                 .padding()
+            
             VStack {
                 TickerListRowView(data: appleTickerListRowViewData(rowType: .search(isSaved: true, onButtonTapped: {})))
                 Divider()
@@ -104,17 +111,16 @@ struct TickerListRawView_Previews: PreviewProvider {
             }.padding()
             
             
-            
-            
         }.previewLayout(.sizeThatFits)
     }
-        
-    static func appleTickerListRowViewData(rowType: TickerListRawData.rowType) -> TickerListRawData {
-            .init(symbol: "AAPL", name: "Apple Inc.", price: ("100.0", "+0.7"), type: rowType)
-        }
-        
-    static func teslaTickerListRowViewData(rowType: TickerListRawData.rowType) -> TickerListRawData {
-            .init(symbol: "TSLA", name: "Tesla" , price: ("250.9", "-18.5"), type: rowType)
-        }
+    
+    static func appleTickerListRowViewData(rowType: TickerListRawData.rowType) ->
+    TickerListRawData {
+        .init(symbol: "AAPL", name: "Apple Inc.", price: ("100.0", "+0.7"), type: rowType)
     }
+    
+    static func teslaTickerListRowViewData(rowType: TickerListRawData.rowType) -> TickerListRawData {
+        .init(symbol: "TSLA", name: "Tesla" , price: ("250.9", "-18.5"), type: rowType)
+    }
+}
 
