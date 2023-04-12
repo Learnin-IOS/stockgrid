@@ -12,19 +12,23 @@ struct StockTickerView: View {
     
     @StateObject var chartVM: ChartViewModel
     @StateObject var quoteVM: TickerQuoteViewModel
+    
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         VStack(alignment: .leading,spacing: 0) {
             headerView.padding(.horizontal)
+            
             Divider()
                 .padding(.vertical, 8)
                 .padding(.horizontal)
+            
             scrollView
         }
         .padding(.top)
         .background(Color(uiColor: .systemBackground))
         .task(id: chartVM.selectedRange.rawValue) {
+            
             if quoteVM.quote == nil {
                 await quoteVM.fetchQuote()
                 
@@ -35,6 +39,7 @@ struct StockTickerView: View {
     }
     
     private var scrollView: some View {
+        
         ScrollView {
             priceDiffRowView
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -66,6 +71,7 @@ struct StockTickerView: View {
     
     @ViewBuilder
     private var chartView: some View {
+        
         switch chartVM.fetchPhase {
         case .fetching: LoadingStateView()
         case .success(let data):
@@ -73,11 +79,13 @@ struct StockTickerView: View {
         case .failure(let error):
             ErrorStateView(error: "Chart: \(error.localizedDescription)")
         default: EmptyView()
+            
         }
     }
     
     @ViewBuilder
     private var quoteDetailRowView: some View {
+        
         switch quoteVM.phase {
         case .fetching: LoadingStateView()
         case .failure(let error): ErrorStateView(error: "Quote: \(error.localizedDescription)")
@@ -95,11 +103,14 @@ struct StockTickerView: View {
             .scrollIndicators(.hidden)
             
         default: EmptyView()
+            
         }
     }
     
     private var priceDiffRowView: some View {
+        
         VStack(alignment: .leading, spacing: 8) {
+            
             if let quote = quoteVM.quote {
                 HStack {
                     if quote.isTrading,
@@ -133,7 +144,9 @@ struct StockTickerView: View {
     
     
     private var exchangeCurrencyView: some View {
+        
         HStack(spacing: 4) {
+            
             if let exchange = quoteVM.ticker.exchDisp {
                 Text(exchange)
             }
@@ -148,6 +161,7 @@ struct StockTickerView: View {
     }
     
     private func priceDiffStackView(price: String, diff: String, caption: String?) -> some View {
+        
         VStack(alignment: .leading) {
             HStack(alignment: .lastTextBaseline ,spacing: 16) {
                 Text(price).font(.headline.bold())
