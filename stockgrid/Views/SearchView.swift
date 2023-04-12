@@ -15,6 +15,7 @@ struct SearchView: View {
     
     var body: some View {
         List(searchVM.tickers) { ticker in
+            
             TickerListRowView(
                 data: .init(
                     symbol: ticker.symbol,
@@ -36,6 +37,7 @@ struct SearchView: View {
         .task(id: searchVM.tickers) { await quotesVm.fetchQuotes(tickers: searchVM.tickers)}
         .overlay { listSearchOverlay }
     }
+    
     @ViewBuilder
     private var listSearchOverlay: some View {
         switch searchVM.phase {
@@ -53,6 +55,7 @@ struct SearchView: View {
 }
 
 struct SearchView_Previews: PreviewProvider {
+    
     @StateObject static var stubbedSearchVM: SearchViewModel = {
         var mock = MockStocksAPI()
         mock.stubbedSearchTickersCallback = {  Ticker.stubs }
@@ -93,6 +96,7 @@ struct SearchView_Previews: PreviewProvider {
     }()
     
     static var previews: some View {
+        
         Group {
             NavigationStack {
                 SearchView(quotesVm: quotesVM, searchVM: stubbedSearchVM)
