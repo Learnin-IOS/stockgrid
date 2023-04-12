@@ -59,7 +59,7 @@ struct SearchView_Previews: PreviewProvider {
     @StateObject static var stubbedSearchVM: SearchViewModel = {
         var mock = MockStocksAPI()
         mock.stubbedSearchTickersCallback = {  Ticker.stubs }
-       return SearchViewModel(query: "Tesla", stockAPI: mock)
+        return SearchViewModel(query: "Tesla", stockAPI: mock)
         
     }()
     
@@ -74,13 +74,13 @@ struct SearchView_Previews: PreviewProvider {
         mock.stubbedSearchTickersCallback = {
             await withCheckedContinuation { _ in }
         }
-       return SearchViewModel(query: "Tesla", stockAPI: mock)
+        return SearchViewModel(query: "Tesla", stockAPI: mock)
     }()
     
     @StateObject static var errorSearchVM: SearchViewModel = {
         var mock = MockStocksAPI()
         mock.stubbedSearchTickersCallback = { throw  NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "An Error has occured"]) }
-       return SearchViewModel(query: "Tesla", stockAPI: mock)
+        return SearchViewModel(query: "Tesla", stockAPI: mock)
     }()
     
     @StateObject static var appVM: AppViewModel = {
