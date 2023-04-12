@@ -20,7 +20,7 @@ struct MoockTickerListRepository: TickerListRepository {
     
     func save(_ current: [Ticker]) async throws {}
     
-     
+    
 }
 
 #endif
