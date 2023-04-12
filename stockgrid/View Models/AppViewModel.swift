@@ -45,7 +45,7 @@ class AppViewModel: ObservableObject {
         
         Task { [weak self] in
             guard let self = self else { return }
-
+            
             do {
                 self.tickers = try await tickerListRepository.load()
             } catch {
@@ -77,7 +77,7 @@ class AppViewModel: ObservableObject {
     func toggleTicker(_ ticker: Ticker) {
         
         if isAddedToMyTickers(ticker: ticker) {
-             removeFromMyTickers(ticker: ticker)
+            removeFromMyTickers(ticker: ticker)
         } else {
             addToMyTickers(ticker: ticker)
         }
@@ -86,7 +86,7 @@ class AppViewModel: ObservableObject {
     private func addToMyTickers(ticker: Ticker) {
         tickers.append(ticker)
     }
- 
+    
     private func removeFromMyTickers(ticker: Ticker) {
         
         guard let index = tickers.firstIndex(where: { $0.symbol == ticker.symbol }) else { return }
