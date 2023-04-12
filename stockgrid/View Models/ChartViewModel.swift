@@ -30,6 +30,7 @@ class ChartViewModel: ObservableObject {
     @Published var selectedX: (any Plottable)?
     
     var selectedRuleMark: (value: Date, text: String)? {
+        
         guard let selectedX = selectedX as? Date,
               let chart
         else { return nil }
@@ -48,6 +49,7 @@ class ChartViewModel: ObservableObject {
     }
     
     func fetchData() async {
+        
         do {
             
             fetchPhase = .fetching
@@ -67,6 +69,7 @@ class ChartViewModel: ObservableObject {
     }
     
     func transformChartViewData(_ data: ChartData)  -> ChartViewData {
+        
         let items = data.indicators.map { ChartViewItem(timestamp: $0.timestamp, value: $0.close)}
         let yAxisChartData = yAxisChartData(data)
         return ChartViewData(
@@ -79,6 +82,7 @@ class ChartViewModel: ObservableObject {
     
     
     func yAxisChartData(_ data : ChartData) -> ChartAxisData {
+        
         let closes = data.indicators.map { $0.close }
         var lowest = closes.min() ?? 0
         var highest = closes.max() ?? 0
@@ -98,6 +102,7 @@ class ChartViewModel: ObservableObject {
     }
     
     func previousCloseRuleMarkValue(data: ChartData, yAxisData: ChartAxisData) -> Double? {
+        
         guard let previousClose = data.meta.previousClose, selectedRange == .oneDay else { return nil }
         return (yAxisData.axisStart <= previousClose && previousClose <= yAxisData.axisEnd) ? previousClose : nil
         
@@ -105,6 +110,7 @@ class ChartViewModel: ObservableObject {
    
     
     func getLineColor(data: ChartData) -> Color {
+        
         if let last = data.indicators.last?.close {
             if selectedRange == .oneDay, let prevClose = data.meta.previousClose {
                 return last >= prevClose ? .green : .red
