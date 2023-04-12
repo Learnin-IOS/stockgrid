@@ -51,7 +51,7 @@ extension Quote {
         Quote(symbol: "AMD",
               currency: "USD",
               marketState: istrading ? "REGULAR" : "CLOSED",
-
+              
               regularMarketPrice: 97.84,
               regularMarketChange: 1.24,
               postMarketPrice: 97.80,
