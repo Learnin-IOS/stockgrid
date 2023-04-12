@@ -107,7 +107,7 @@ class ChartViewModel: ObservableObject {
         return (yAxisData.axisStart <= previousClose && previousClose <= yAxisData.axisEnd) ? previousClose : nil
         
     }
-   
+    
     
     func getLineColor(data: ChartData) -> Color {
         
