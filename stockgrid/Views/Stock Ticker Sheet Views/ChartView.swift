@@ -34,7 +34,7 @@ struct ChartView: View {
                                     vm.selectedX = nil
                                 }
                         )
-                    }
+                }
             }
     }
     
@@ -137,7 +137,7 @@ struct ChartView_Previews: PreviewProvider {
 struct ChartContainer_Previews: View {
     @StateObject var vm: ChartViewModel
     let title: String
-
+    
     var body: some View {
         VStack {
             Text(title)
