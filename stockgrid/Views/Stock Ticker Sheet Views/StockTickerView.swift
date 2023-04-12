@@ -179,6 +179,7 @@ struct StockTickerView: View {
     }
     
     private var headerView: some View {
+        
         HStack(alignment: .lastTextBaseline) {
             Text(quoteVM.ticker.symbol).font(.title.bold())
             if let shortname = quoteVM.ticker.shortname {
@@ -187,13 +188,16 @@ struct StockTickerView: View {
                     .foregroundColor(Color(uiColor: .secondaryLabel))
             }
             Spacer()
+            
             closeButton
         }
     }
         private var closeButton: some View {
+            
             Button{
                 dismiss()}
         label: {
+            
                 Circle()
                     .frame(width: 36, height: 36)
                     .foregroundColor(.gray.opacity(0.1))
@@ -251,6 +255,7 @@ struct StockTickerView_Previews: PreviewProvider {
     
     static var previews: some View {
         Group {
+            
             StockTickerView(chartVM: chartVM, quoteVM: tradingStubsQuoteVM)
                 .previewDisplayName("Trading")
                 .frame(height: 700)
@@ -269,7 +274,6 @@ struct StockTickerView_Previews: PreviewProvider {
             
            
         }.previewLayout(.sizeThatFits)
-        
         
 
     }
