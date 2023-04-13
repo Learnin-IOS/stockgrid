@@ -48,8 +48,15 @@ struct StockTickerView: View {
             
             Divider()
             
-            DateRangePickerView(selectedRange: $chartVM.selectedRange)
-            
+            ZStack {
+                DateRangePickerView(selectedRange: $chartVM.selectedRange)
+                    .opacity(chartVM.selectedXOpacity)
+                
+                Text(chartVM.selectedXDateText)
+                    .font(.headline)
+                    .padding(.vertical, 4)
+                    .padding(.horizontal)
+            }
             Divider()
             
             chartView
