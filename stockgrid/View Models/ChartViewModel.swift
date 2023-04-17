@@ -54,6 +54,8 @@ class ChartViewModel: ObservableObject {
         return df
     }()
     
+    private let dateFormatter = DateFormatter()
+    
     var selectedXDateText: String {
         guard let selectedX = selectedX as? Date, let chart else  { return "" }
         if selectedRange == .oneDay || selectedRange == .oneWeek {
@@ -102,6 +104,13 @@ class ChartViewModel: ObservableObject {
         )
     }
     
+    func xAxisChartDataAndItems(_ data: ChartData) -> (ChartAxisData, [ChartViewData]) {
+        let timezone = TimeZone(secondsFromGMT: data.meta.gmtoffset) ?? .gmt
+        dateFormatter.timeZone = timezone
+        selectedValueDateFormatter.timeZone = timezone
+        dateFormatter.dateFormat = selectedRange.dateFormat
+    }
+    
     
     func yAxisChartData(_ data : ChartData) -> ChartAxisData {
         
@@ -119,7 +128,9 @@ class ChartViewModel: ObservableObject {
         
         return ChartAxisData(
             axisStart: lowest + 0.01 ,
-            axisEnd: highest + 0.01
+            axisEnd: highest + 0.01,
+            strideBy: 0,
+            map: [:]
         )
     }
     
