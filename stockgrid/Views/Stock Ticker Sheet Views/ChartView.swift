@@ -138,11 +138,10 @@ struct ChartView: View {
     
     private func onChangeDrag(value: DragGesture.Value, chartProxy: ChartProxy, geomertyProxy: GeometryProxy) {
         let xCurrent = value.location.x - geomertyProxy[chartProxy.plotAreaFrame].origin.x
-        if let timestamp: Date = chartProxy.value(atX: xCurrent),
-           let startDate = data.items.first?.timestamp,
-           let lastDate = data.items.last?.timestamp,
-           timestamp >= startDate && timestamp <= lastDate {
-            vm.selectedX = timestamp
+        if let index: Double = chartProxy.value(atX: xCurrent),
+           index >= 0,
+           Int(index) <= data.items.count - 1 {
+            self.vm.selectedX = Int(index)
         }
     }
 }
