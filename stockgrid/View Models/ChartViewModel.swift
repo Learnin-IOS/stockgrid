@@ -29,13 +29,13 @@ class ChartViewModel: ObservableObject {
     
     @Published var selectedX: (any Plottable)?
     
-    var selectedRuleMark: (value: Date, text: String)? {
+    var selectedRuleMark: (value: Int, text: String)? {
         
-        guard let selectedX = selectedX as? Date,
+        guard let selectedX = selectedX as? Int,
               let chart
         else { return nil }
-        let index = DateBins(thresholds: chart.items.map { $0.timestamp }).index(for: selectedX)
-        return (selectedX, String(format: "%.2f", chart.items[index].value))
+ 
+        return (selectedX, chart.items[selectedX].value.rounderString)
     }
     
     var foregroundMarkColor: Color {
@@ -57,14 +57,13 @@ class ChartViewModel: ObservableObject {
     private let dateFormatter = DateFormatter()
     
     var selectedXDateText: String {
-        guard let selectedX = selectedX as? Date, let chart else  { return "" }
+        guard let selectedX = selectedX as? Int, let chart else  { return "" }
         if selectedRange == .oneDay || selectedRange == .oneWeek {
             selectedValueDateFormatter.timeStyle = .short
         } else {
             selectedValueDateFormatter.timeStyle = .none
         }
-        let index = DateBins(thresholds: chart.items.map { $0.timestamp }).index(for: selectedX)
-        let item = chart.items[index]
+        let item = chart.items[selectedX]
         return selectedValueDateFormatter.string(from: item.timestamp)
     }
     
