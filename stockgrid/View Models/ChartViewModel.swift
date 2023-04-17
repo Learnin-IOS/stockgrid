@@ -192,14 +192,21 @@ class ChartViewModel: ObservableObject {
             strideBy = 1.0
         }
         
-       
+        let increment = ((highest - lowest) / numberOfLines)
+        var map =  [String : String]()
+        map[highest.rounderString] = formatYAxisValueLabel(value: highest, shouldCeilIncrement: shouldCeilIncrement)
         
-        
+        var current = lowest
+        (0..<Int(numberOfLines) - 1).forEach { i in
+            current += increment
+            map[(shouldCeilIncrement ? ceil(current) : current).rounderString] = formatYAxisValueLabel(value: current, shouldCeilIncrement: shouldCeilIncrement)
+        }
+     
         return ChartAxisData(
             axisStart: lowest + 0.01 ,
             axisEnd: highest + 0.01,
-            strideBy: 0,
-            map: [:]
+            strideBy: strideBy,
+            map: map
         )
     }
     
