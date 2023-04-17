@@ -18,6 +18,7 @@ struct ChartView: View {
         chart
             .chartXAxis { chartXAxis }
             .chartXScale(domain: data.xAxisData.axisStart...data.xAxisData.axisEnd)
+            .chartYAxis { chartYAxis }
             .chartYScale(domain: data.yAxisData.axisStart...data.yAxisData.axisEnd)
             .chartPlotStyle { chartPlotStyle($0) }
             .chartOverlay { proxy in
@@ -96,8 +97,20 @@ struct ChartView: View {
         }
     }
     
-    private func chartYAxis: some AxisContent {
-        
+    private var chartYAxis: some AxisContent {
+        AxisMarks(preset: .extended, values: .stride(by: data.yAxisData.strideBy)) {
+            value in
+            if let y = value.as(Double.self),
+               let text = data.yAxisData.map[y.rounderString] {
+                AxisGridLine(stroke: .init(lineWidth: 0.3))
+                AxisTick(stroke: .init(lineWidth: 0.3))
+                AxisValueLabel(anchor: .topLeading, collisionResolution: .greedy) {
+                    Text(text)
+                        .foregroundColor(Color(uiColor: .label))
+                        .font(.caption.bold())
+                }
+            }
+        }
     }
     
     
