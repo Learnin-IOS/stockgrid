@@ -104,11 +104,45 @@ class ChartViewModel: ObservableObject {
         )
     }
     
-    func xAxisChartDataAndItems(_ data: ChartData) -> (ChartAxisData, [ChartViewData]) {
+    func xAxisChartDataAndItems(_ data: ChartData) -> (ChartAxisData, [ChartViewItem]) {
         let timezone = TimeZone(secondsFromGMT: data.meta.gmtoffset) ?? .gmt
         dateFormatter.timeZone = timezone
         selectedValueDateFormatter.timeZone = timezone
         dateFormatter.dateFormat = selectedRange.dateFormat
+        
+        var xAxisDateComponents = Set<DateComponents>()
+        if let startTimestamp = data.indicators.first?.timestamp {
+            if selectedRange == .oneDay {
+                xAxisDateComponents = selectedRange.getDateComponents(startDate: startTimestamp, endDate: data.meta.regularTradingPeriodEndDate, timezone: timezone)
+            }
+            else if let endTimestamp = data.indicators.last?.timestamp {
+                xAxisDateComponents = selectedRange.getDateComponents(startDate: startTimestamp, endDate: endTimestamp, timezone: timezone)
+            }
+        }
+        
+        var map = [String: String]()
+        var axisEnd: Int
+        
+        
+        var items = [ChartViewItem]()
+        
+        for (index, value) in data.indicators.enumerated() {
+            let dc = value.timestamp.dateComponents(timeZone: timezone, rangeType: selectedRange)
+            if xAxisDateComponents.contains(dc) {
+                map[String(index)] = dateFormatter.string(from: value.timestamp)
+                xAxisDateComponents.remove(dc)
+            }
+            
+            items.append(ChartViewItem(timestamp: value.timestamp, value: value.close))
+        }
+        axisEnd = items.count - 1
+        let xAxisData = ChartAxisData(
+            axisStart: 0,
+            axisEnd: Double(axisEnd),
+            strideBy: 1,
+            map: map)
+        
+        return (xAxisData, items)
     }
     
     
