@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import StocksAPI
 
 
 extension Double {
@@ -44,5 +45,23 @@ extension Double {
         numFormatter.decimalSeparator = ","
         
         return numFormatter.string(from: NSNumber (value:value))!
+    }
+}
+
+
+extension Date {
+    func dateComponents(timeZone: TimeZone, rangeType: ChartRange, calendar: Calendar = .current) -> DateComponents{
+        let current = calendar.dateComponents(in: timeZone, from: self)
+        
+        var dc = DateComponents(timeZone: timeZone, year: current.year, month: current.month)
+        
+        if rangeType == .oneMonth || rangeType == .oneWeek || rangeType == .oneDay {
+            dc.day = current.day
+        }
+        
+        if rangeType == .oneDay {
+            dc.hour = current.hour
+        }
+        return dc
     }
 }
