@@ -145,7 +145,8 @@ struct ChartView_Previews: PreviewProvider {
     static func chartViewModel(range: ChartRange, stub: ChartData) -> ChartViewModel {
         var mockStocksAPI = MockStocksAPI()
         mockStocksAPI.stubFetchChartDataCallback = { _ in stub }
-        let chartVM =  ChartViewModel(ticker: .stub, apiService: mockStocksAPI )
+        let chartVM =  ChartViewModel(ticker: .stub, apiService: mockStocksAPI)
+        chartVM.selectedRange = range
         return chartVM
     }
 }
