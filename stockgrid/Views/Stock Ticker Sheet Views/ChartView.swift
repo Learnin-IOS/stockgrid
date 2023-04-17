@@ -126,7 +126,6 @@ struct ChartView: View {
             vm.selectedX = timestamp
         }
     }
-    
 }
 
 struct ChartView_Previews: PreviewProvider {
