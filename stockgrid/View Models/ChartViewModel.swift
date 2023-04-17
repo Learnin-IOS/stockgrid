@@ -136,6 +136,23 @@ class ChartViewModel: ObservableObject {
             items.append(ChartViewItem(timestamp: value.timestamp, value: value.close))
         }
         axisEnd = items.count - 1
+        
+        if selectedRange == .oneDay,
+           var date = items.last?.timestamp,
+            date >= data.meta.regularTradingPeriodStartDate &&
+            date < data.meta.regularTradingPeriodEndDate {
+            while date < data.meta.regularTradingPeriodEndDate {
+                axisEnd += 1
+                date = Calendar.current.date(byAdding: .minute, value: 2, to: date)!
+                let dc = date.dateComponents(timeZone: timezone, rangeType: selectedRange)
+                if xAxisDateComponents.contains(dc) {
+                    map[String(axisEnd)] = dateFormatter.string(from: date)
+                    xAxisDateComponents.remove(dc)
+                }
+            }
+        }
+            
+            
         let xAxisData = ChartAxisData(
             axisStart: 0,
             axisEnd: Double(axisEnd),
