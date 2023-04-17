@@ -48,6 +48,12 @@ extension Double {
     }
 }
 
+extension Double {
+    var rounderString: String {
+        String(format: "%.2f", self)
+    }
+}
+
 
 extension Date {
     func dateComponents(timeZone: TimeZone, rangeType: ChartRange, calendar: Calendar = .current) -> DateComponents{
