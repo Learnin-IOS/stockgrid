@@ -177,12 +177,38 @@ class ChartViewModel: ObservableObject {
             }
         }
         
+        let diff = highest - lowest
+        let numberOfLines: Double = 4
+        let shouldCeilIncrement: Bool
+        let strideBy: Double
+        
+        if diff < numberOfLines {
+            shouldCeilIncrement = false
+            strideBy = 0.01
+        } else {
+            shouldCeilIncrement = true
+            lowest = floor(lowest)
+            highest = ceil(highest)
+            strideBy = 1.0
+        }
+        
+       
+        
+        
         return ChartAxisData(
             axisStart: lowest + 0.01 ,
             axisEnd: highest + 0.01,
             strideBy: 0,
             map: [:]
         )
+    }
+    
+    func formatYAxisValueLabel(value: Double,  shouldCeilIncrement: Bool) -> String {
+        if shouldCeilIncrement {
+            return String(Int(ceil(value)))
+        } else {
+            return Utils.numberFormatter.string(from: NSNumber(value: value)) ?? value.rounderString
+        }
     }
     
     func previousCloseRuleMarkValue(data: ChartData, yAxisData: ChartAxisData) -> Double? {
