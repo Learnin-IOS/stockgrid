@@ -16,7 +16,8 @@ struct ChartView: View {
     
     var body: some View {
         chart
-            .chartXScale(domain: data.items.first!.timestamp...data.items.last!.timestamp)
+            .chartXAxis { chartXAxis }
+            .chartXScale(domain: data.xAxisData.axisStart...data.xAxisData.axisEnd)
             .chartYScale(domain: data.yAxisData.axisStart...data.yAxisData.axisEnd)
             .chartPlotStyle { chartPlotStyle($0) }
             .chartOverlay { proxy in
@@ -40,17 +41,17 @@ struct ChartView: View {
     
     private var chart: some View  {
         Chart {
-            ForEach(data.items) {
+            ForEach(Array(zip(data.items.indices, data.items)), id: \.0) { index, item in
                 LineMark(
-                    x: .value("Time", $0.timestamp),
-                    y: .value("Price", $0.value)
+                    x: .value("Time", index),
+                    y: .value("Price", item.value)
                 )
                 .foregroundStyle(vm.foregroundMarkColor)
                 
                 AreaMark (
-                    x: .value("Time", $0.timestamp),
+                    x: .value("Time", index),
                     yStart: .value("Min", data.yAxisData.axisStart),
-                    yEnd: .value("Max", $0.value)
+                    yEnd: .value("Max", item.value)
                     
                 )
                 .foregroundStyle(LinearGradient(gradient: Gradient(colors: [
@@ -74,6 +75,22 @@ struct ChartView: View {
                                 .foregroundColor(.blue)
                         }
                         .foregroundStyle(vm.foregroundMarkColor)
+                }
+            }
+        }
+    }
+    
+    private var chartXAxis: some AxisContent {
+        AxisMarks(values: .stride(by: data.xAxisData.strideBy)) {
+            value in
+            if let text = data.xAxisData.map[String(value.index)] {
+                AxisGridLine(stroke: .init(lineWidth: 0.3))
+                AxisTick(stroke: .init(lineWidth: 0.3))
+                AxisValueLabel(collisionResolution: .greedy()) {
+                    Text(text)
+                        .foregroundColor(Color(uiColor: .label))
+                        .font(.caption.bold())
+                        .fontWeight(.bold)
                 }
             }
         }
