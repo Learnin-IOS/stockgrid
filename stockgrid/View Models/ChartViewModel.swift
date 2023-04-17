@@ -93,10 +93,10 @@ class ChartViewModel: ObservableObject {
     }
     
     func transformChartViewData(_ data: ChartData)  -> ChartViewData {
-        
-        let items = data.indicators.map { ChartViewItem(timestamp: $0.timestamp, value: $0.close)}
+        let (xAxisChartData, items) = xAxisChartDataAndItems(data)
         let yAxisChartData = yAxisChartData(data)
         return ChartViewData(
+            xAxisData: xAxisChartData,
             yAxisData: yAxisChartData,
             items: items,
             lineColor: getLineColor(data: data),
