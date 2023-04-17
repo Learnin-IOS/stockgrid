@@ -29,4 +29,6 @@ struct ChartViewItem: Identifiable {
 struct ChartAxisData {
     let axisStart: Double
     let axisEnd: Double
+    let strideBy: Double
+    let map: [String: String]
 }
