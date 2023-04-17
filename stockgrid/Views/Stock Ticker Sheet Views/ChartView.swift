@@ -96,6 +96,12 @@ struct ChartView: View {
         }
     }
     
+    private func chartYAxis: some AxisContent {
+        
+    }
+    
+    
+    
     private func chartPlotStyle(_ plotContent: ChartPlotContent) -> some View {
         plotContent
             .frame(height: 200)
