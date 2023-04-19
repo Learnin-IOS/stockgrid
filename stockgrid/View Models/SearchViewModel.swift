@@ -17,8 +17,8 @@ class SearchViewModel: ObservableObject {
     
     @Published var query: String = ""
     @Published var phase: FetchPase<[Ticker]> = .initial
-     
-     
+    
+    
     private var trimmedQuery: String {
         query.trimmingCharacters(in: .whitespacesAndNewlines)
     }
@@ -28,7 +28,7 @@ class SearchViewModel: ObservableObject {
     var isSearching: Bool  { !trimmedQuery.isEmpty }
     
     var emptyListText: String {
-         "Symbols not found for\n\"\(query)\""
+        "Symbols not found for\n\"\(query)\""
     }
     private var cancellables = Set<AnyCancellable>()
     private let stockAPI: StockAPI
@@ -51,7 +51,7 @@ class SearchViewModel: ObservableObject {
     }
     
     func searchTickers() async {
-         let searchQuery = trimmedQuery
+        let searchQuery = trimmedQuery
         guard !searchQuery.isEmpty else { return }
         phase = .fetching
         

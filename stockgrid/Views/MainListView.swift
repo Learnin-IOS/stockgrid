@@ -26,7 +26,7 @@ struct MainListView: View {
             .searchable(text: $searchVM.query)
             .refreshable { await quotesVM.fetchQuotes(tickers: appVM.tickers)}
             .sheet(item: $appVM.selectedTicker) {
-                StockTickerView(quoteVM: .init(ticker: $0, stockAPI: quotesVM.stockAPI))
+                StockTickerView(chartVM: ChartViewModel(ticker: $0 , apiService: quotesVM.stockAPI), quoteVM: .init(ticker: $0, stockAPI: quotesVM.stockAPI))
                     .presentationDetents([.height(560)])
             }
             .task(id: appVM.tickers) { await quotesVM.fetchQuotes(tickers: appVM.tickers) }
@@ -84,10 +84,10 @@ struct MainListView: View {
                 }
                 .buttonStyle(.plain)
                 Spacer()
-
+                
             }
         }
-
+        
     }
 }
 

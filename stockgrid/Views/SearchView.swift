@@ -15,6 +15,7 @@ struct SearchView: View {
     
     var body: some View {
         List(searchVM.tickers) { ticker in
+            
             TickerListRowView(
                 data: .init(
                     symbol: ticker.symbol,
@@ -36,6 +37,7 @@ struct SearchView: View {
         .task(id: searchVM.tickers) { await quotesVm.fetchQuotes(tickers: searchVM.tickers)}
         .overlay { listSearchOverlay }
     }
+    
     @ViewBuilder
     private var listSearchOverlay: some View {
         switch searchVM.phase {
@@ -53,10 +55,11 @@ struct SearchView: View {
 }
 
 struct SearchView_Previews: PreviewProvider {
+    
     @StateObject static var stubbedSearchVM: SearchViewModel = {
         var mock = MockStocksAPI()
         mock.stubbedSearchTickersCallback = {  Ticker.stubs }
-       return SearchViewModel(query: "Tesla", stockAPI: mock)
+        return SearchViewModel(query: "Tesla", stockAPI: mock)
         
     }()
     
@@ -71,13 +74,13 @@ struct SearchView_Previews: PreviewProvider {
         mock.stubbedSearchTickersCallback = {
             await withCheckedContinuation { _ in }
         }
-       return SearchViewModel(query: "Tesla", stockAPI: mock)
+        return SearchViewModel(query: "Tesla", stockAPI: mock)
     }()
     
     @StateObject static var errorSearchVM: SearchViewModel = {
         var mock = MockStocksAPI()
         mock.stubbedSearchTickersCallback = { throw  NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "An Error has occured"]) }
-       return SearchViewModel(query: "Tesla", stockAPI: mock)
+        return SearchViewModel(query: "Tesla", stockAPI: mock)
     }()
     
     @StateObject static var appVM: AppViewModel = {
@@ -93,6 +96,7 @@ struct SearchView_Previews: PreviewProvider {
     }()
     
     static var previews: some View {
+        
         Group {
             NavigationStack {
                 SearchView(quotesVm: quotesVM, searchVM: stubbedSearchVM)

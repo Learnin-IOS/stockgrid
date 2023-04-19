@@ -9,25 +9,37 @@ import SwiftUI
 import StocksAPI
 
 struct StockTickerView: View {
+    
+    @StateObject var chartVM: ChartViewModel
     @StateObject var quoteVM: TickerQuoteViewModel
-    @State var selectedRange = ChartRange.oneDay
+    
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         VStack(alignment: .leading,spacing: 0) {
             headerView.padding(.horizontal)
+            
             Divider()
                 .padding(.vertical, 8)
                 .padding(.horizontal)
+            
             scrollView
         }
         .padding(.top)
         .background(Color(uiColor: .systemBackground))
-        .task { await quoteVM.fetchQuote()}
-
+        .task(id: chartVM.selectedRange.rawValue) {
+            
+            if quoteVM.quote == nil {
+                await quoteVM.fetchQuote()
+                
+            }
+            await chartVM.fetchData()
+        }
+        
     }
     
     private var scrollView: some View {
+        
         ScrollView {
             priceDiffRowView
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -36,11 +48,18 @@ struct StockTickerView: View {
             
             Divider()
             
-            DateRangePickerView(selectedRange: $selectedRange)
-            
+            ZStack {
+                DateRangePickerView(selectedRange: $chartVM.selectedRange)
+                    .opacity(chartVM.selectedXOpacity)
+                
+                Text(chartVM.selectedXDateText)
+                    .font(.headline)
+                    .padding(.vertical, 4)
+                    .padding(.horizontal)
+            }
             Divider()
             
-            Text("ChartView place holder")
+            chartView
                 .padding(.horizontal)
                 .frame(maxWidth: .infinity, minHeight: 220)
            
@@ -58,7 +77,22 @@ struct StockTickerView: View {
     }
     
     @ViewBuilder
+    private var chartView: some View {
+        
+        switch chartVM.fetchPhase {
+        case .fetching: LoadingStateView()
+        case .success(let data):
+            ChartView(data: data, vm: chartVM)
+        case .failure(let error):
+            ErrorStateView(error: "Chart: \(error.localizedDescription)")
+        default: EmptyView()
+            
+        }
+    }
+    
+    @ViewBuilder
     private var quoteDetailRowView: some View {
+        
         switch quoteVM.phase {
         case .fetching: LoadingStateView()
         case .failure(let error): ErrorStateView(error: "Quote: \(error.localizedDescription)")
@@ -76,11 +110,14 @@ struct StockTickerView: View {
             .scrollIndicators(.hidden)
             
         default: EmptyView()
+            
         }
     }
     
     private var priceDiffRowView: some View {
+        
         VStack(alignment: .leading, spacing: 8) {
+            
             if let quote = quoteVM.quote {
                 HStack {
                     if quote.isTrading,
@@ -114,7 +151,9 @@ struct StockTickerView: View {
     
     
     private var exchangeCurrencyView: some View {
+        
         HStack(spacing: 4) {
+            
             if let exchange = quoteVM.ticker.exchDisp {
                 Text(exchange)
             }
@@ -129,6 +168,7 @@ struct StockTickerView: View {
     }
     
     private func priceDiffStackView(price: String, diff: String, caption: String?) -> some View {
+        
         VStack(alignment: .leading) {
             HStack(alignment: .lastTextBaseline ,spacing: 16) {
                 Text(price).font(.headline.bold())
@@ -146,6 +186,7 @@ struct StockTickerView: View {
     }
     
     private var headerView: some View {
+        
         HStack(alignment: .lastTextBaseline) {
             Text(quoteVM.ticker.symbol).font(.title.bold())
             if let shortname = quoteVM.ticker.shortname {
@@ -154,13 +195,16 @@ struct StockTickerView: View {
                     .foregroundColor(Color(uiColor: .secondaryLabel))
             }
             Spacer()
+            
             closeButton
         }
     }
         private var closeButton: some View {
+            
             Button{
                 dismiss()}
         label: {
+            
                 Circle()
                     .frame(width: 36, height: 36)
                     .foregroundColor(.gray.opacity(0.1))
@@ -210,27 +254,33 @@ struct StockTickerView_Previews: PreviewProvider {
         }
         return TickerQuoteViewModel(ticker: .stub, stockAPI: mockAPI)
     }()
+    
+    static var chartVM: ChartViewModel {
+        ChartViewModel(ticker: .stub, apiService: MockStocksAPI())
+    }
+    
+    
     static var previews: some View {
         Group {
-            StockTickerView(quoteVM: tradingStubsQuoteVM)
+            
+            StockTickerView(chartVM: chartVM, quoteVM: tradingStubsQuoteVM)
                 .previewDisplayName("Trading")
                 .frame(height: 700)
             
-            StockTickerView(quoteVM: closedStubsQuoteVM)
+            StockTickerView(chartVM: chartVM, quoteVM: closedStubsQuoteVM)
                 .previewDisplayName("Closed")
                 .frame(height: 700)
             
-            StockTickerView(quoteVM: loadingStubsQuoteVM)
+            StockTickerView(chartVM: chartVM, quoteVM: loadingStubsQuoteVM)
                 .previewDisplayName("Loading Quote")
                 .frame(height: 700)
             
-            StockTickerView(quoteVM: errorStubsQuoteVM)
+            StockTickerView(chartVM: chartVM, quoteVM: errorStubsQuoteVM)
                 .previewDisplayName("Error Quote")
                 .frame(height: 700)
             
            
         }.previewLayout(.sizeThatFits)
-        
         
 
     }

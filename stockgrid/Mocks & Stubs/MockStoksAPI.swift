@@ -9,7 +9,7 @@ import Foundation
 import StocksAPI
 
 #if DEBUG
-    
+
 struct MockStocksAPI: StockAPI {
     
     var stubbedSearchTickersCallback: (() async throws -> [Ticker])!
@@ -22,6 +22,11 @@ struct MockStocksAPI: StockAPI {
         try await stubbedFetchQuotesCallback()
     }
     
+    var stubFetchChartDataCallback: ((ChartRange) async throws -> ChartData?)! = { $0.stubs }
+    
+    func fetchChartData(symbol: String, range: ChartRange) async throws -> ChartData? {
+        try await stubFetchChartDataCallback(range)
+    }
     
 }
 
